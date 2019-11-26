@@ -8,15 +8,16 @@ const transitionConfig = css`
 
 const Container = styled.div`
   position: relative;
-  width: 250px;
-  height: 250px;
+  width: 100%;
+  height: 0;
+  padding-top: 100%;
   overflow: hidden;
   cursor: pointer;
   ${transitionConfig};
 
   :hover {
     & > div {
-      background-color: rgba(0, 0, 0, 0.3);
+      background-color: rgba(0, 0, 0, 0.4);
     }
 
     & > img {
@@ -48,6 +49,9 @@ const Overlay = styled.div`
 `
 
 const Image = styled.img`
+  position: absolute;
+  top: 0;
+
   width: 100%;
   height: 100%;
   object-fit: cover;

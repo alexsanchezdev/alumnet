@@ -1,5 +1,7 @@
 import React from 'react'
 import { Image, Photo } from './components/Image'
+import { List } from './components/List'
+import { ListItem } from './components/ListItem'
 
 const API_KEY = 'baf55b89d2abbbd1f642ecdefa7d058b'
 
@@ -39,13 +41,13 @@ class App extends React.Component {
           </nav>
         </header>
         <div>
-          <ul>
+          <List>
             {this.state.photos.map((photo: Photo) => (
-              <li key={photo.id} style={{ marginBottom: 30 }}>
+              <ListItem key={photo.id}>
                 <Image photo={photo} />
-              </li>
+              </ListItem>
             ))}
-          </ul>
+          </List>
         </div>
       </div>
     )

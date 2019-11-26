@@ -10,7 +10,7 @@ const ImageComponent: React.FC<Props> = ({ photo }) => {
   return (
     <Container>
       <Image
-        alt="Cars"
+        alt={photo.title}
         src={`https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg `}
       />
       <Overlay>
