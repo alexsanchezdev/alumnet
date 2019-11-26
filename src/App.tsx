@@ -1,6 +1,5 @@
 import React from 'react'
-import { Image } from './components/Image'
-import { Photo } from './components/Image.model'
+import { Image, Photo } from './components/Image'
 
 const API_KEY = 'baf55b89d2abbbd1f642ecdefa7d058b'
 
