@@ -1,6 +1,8 @@
 import React from 'react'
+import { Image } from './components/Image'
+import { Photo } from './components/Image.model'
 
-const API_KEY = ''
+const API_KEY = 'baf55b89d2abbbd1f642ecdefa7d058b'
 
 class App extends React.Component {
   public state = {
@@ -39,7 +41,7 @@ class App extends React.Component {
         </header>
         <div>
           <ul>
-            {this.state.photos.map((photo: any) => (
+            {this.state.photos.map((photo: Photo) => (
               <li key={photo.id} style={{ marginBottom: 30 }}>
                 <div style={{ color: 'white' }}>
                   {photo.title}{' '}
@@ -47,10 +49,7 @@ class App extends React.Component {
                     <strong>Favorite</strong>
                   </span>
                 </div>
-                <img
-                  alt="Cars"
-                  src={`https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg `}
-                />
+                <Image photo={photo} />
               </li>
             ))}
           </ul>
