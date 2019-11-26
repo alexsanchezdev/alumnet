@@ -6,23 +6,6 @@ const transitionConfig = css`
   transition-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
 `
 
-const Overlay = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0);
-  ${transitionConfig};
-`
-
-const Image = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  ${transitionConfig};
-`
-
 const Container = styled.div`
   position: relative;
   width: 250px;
@@ -42,4 +25,43 @@ const Container = styled.div`
   }
 `
 
-export { Container, Overlay, Image }
+const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+
+  background-color: rgba(0, 0, 0, 0);
+  ${transitionConfig};
+
+  :hover {
+    & > span {
+      opacity: 1;
+    }
+  }
+`
+
+const Image = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  ${transitionConfig};
+`
+
+const Title = styled.span`
+  color: white;
+  font-weight: 600;
+  text-align: center;
+
+  opacity: 0;
+  ${transitionConfig};
+`
+
+export { Container, Overlay, Image, Title }

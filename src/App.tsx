@@ -42,12 +42,6 @@ class App extends React.Component {
           <ul>
             {this.state.photos.map((photo: Photo) => (
               <li key={photo.id} style={{ marginBottom: 30 }}>
-                <div style={{ color: 'white' }}>
-                  {photo.title}{' '}
-                  <span>
-                    <strong>Favorite</strong>
-                  </span>
-                </div>
                 <Image photo={photo} />
               </li>
             ))}
