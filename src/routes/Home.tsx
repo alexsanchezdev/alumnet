@@ -1,78 +1,61 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
 import { Image, Photo } from '../components/Image'
 import { List } from '../components/List'
 import { ListItem } from '../components/ListItem'
 import { FlickrAPIClient } from '../utils/APIClient'
+import { useLocation } from 'react-router-dom'
 
-export class Home extends React.Component {
-  public state = {
-    favorites: 0,
-    photos: [],
-    searchText: 'cars',
-    total: 0,
-  }
-  public componentDidMount() {
-    const { searchText } = this.state
-    FlickrAPIClient.get('/', {
-      method: 'flickr.photos.search',
-      tags: searchText,
-    })
-      .then((data: any) =>
-        this.setState({
-          photos: data.photos.photo,
-          total: data.photos.total,
-        })
-      )
-      .catch((error: any) => console.error(error))
+const useQuery = () => {
+  return new URLSearchParams(useLocation().search.slice(1))
+}
 
-    const favorites = localStorage.getItem('favorites')
-    if (favorites) {
-      const favoritesArray = JSON.parse(favorites) as string[]
-      this.setState({ favorites: favoritesArray.length })
-    } else {
-      this.setState({ favorites: 0 })
+export const Home: React.FC = () => {
+  const search = useQuery().get('search')
+  const [loading, setLoading] = React.useState(false)
+  const [favorites, setFavorites] = React.useState(0)
+  const [photos, setPhotos] = React.useState([])
+  const [totalPhotos, setTotalPhotos] = React.useState(0)
+
+  React.useEffect(() => {
+    const savedFavorites = localStorage.getItem('favorites')
+    if (savedFavorites) {
+      const savedFavoritesArray = JSON.parse(savedFavorites) as string[]
+      setFavorites(savedFavoritesArray.length)
     }
-  }
+  }, [])
 
-  public render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <nav>
-            <ul>
-              <li>
-                Search: <input type={'text'} onChange={this.search} />
-              </li>
-              <li>Total results: {this.state.total}</li>
-              <li>Total images displayed: {this.state.photos.length}</li>
-              <li>Favorites: {this.state.favorites}</li>
-            </ul>
-          </nav>
-        </header>
-        <div>
-          <List>
-            {this.state.photos.map((photo: Photo) => (
-              <ListItem key={photo.id}>
-                <Image photo={photo} />
-              </ListItem>
-            ))}
-          </List>
-        </div>
-      </div>
-    )
-  }
-
-  private search = (e: any) => {
+  React.useEffect(() => {
+    setLoading(true)
     FlickrAPIClient.get('/', {
       method: 'flickr.photos.search',
-      tags: e.target.value,
+      sort: 'relevance',
+      tags: search || 'cars',
     })
-      .then((data: any) =>
-        this.setState({
-          photos: data.photos.photo,
-          total: data.photos.total,
-        })
-      )
+      .then((data: any) => {
+        setPhotos(data.photos.photo)
+        setTotalPhotos(data.photos.total)
+      })
       .catch((error: any) => console.error(error))
-  }
+      .finally(() => setLoading(false))
+  }, [search])
+
+  return (
+    <div>
+      <p style={{ paddingLeft: 24, paddingRight: 24 }}>
+        {loading
+          ? 'Searching...'
+          : `Showing ${photos.length} of ${totalPhotos} total images`}
+      </p>
+      {!loading && (
+        <List>
+          {photos.map((photo: Photo) => (
+            <ListItem key={photo.id}>
+              <Image photo={photo} />
+            </ListItem>
+          ))}
+        </List>
+      )}
+    </div>
+  )
 }
