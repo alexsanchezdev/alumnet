@@ -31,7 +31,6 @@ const ImageComponent: React.FC<Props> = ({ photo }) => {
             onLoad={hideLoading}
             onError={showError}
           />
-
           <Overlay>
             <Title>{photo.title}</Title>
           </Overlay>

@@ -18,7 +18,8 @@ const Container = styled.div<{ isError?: boolean; isLoading?: boolean }>`
     !p.isError &&
     css`
       cursor: pointer;
-      :hover {
+      :hover,
+      :focus {
         & > div {
           background-color: rgba(0, 0, 0, 0.4);
         }
@@ -45,7 +46,8 @@ const Overlay = styled.div`
   background-color: rgba(0, 0, 0, 0);
   ${transitionConfig};
 
-  :hover {
+  :hover,
+  :focus {
     & > span {
       opacity: 1;
     }
