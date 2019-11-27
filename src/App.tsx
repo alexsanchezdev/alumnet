@@ -2,8 +2,7 @@ import React from 'react'
 import { Image, Photo } from './components/Image'
 import { List } from './components/List'
 import { ListItem } from './components/ListItem'
-
-const API_KEY = 'baf55b89d2abbbd1f642ecdefa7d058b'
+import { FlickrAPIClient } from './utils/APIClient'
 
 class App extends React.Component {
   public state = {
@@ -13,16 +12,17 @@ class App extends React.Component {
   }
   public componentDidMount() {
     const { searchText } = this.state
-    fetch(
-      `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${API_KEY}&tags=${searchText}&format=json&nojsoncallback=?`
-    )
-      .then(res => res.json())
-      .then(response => {
+    FlickrAPIClient.get('/', {
+      method: 'flickr.photos.search',
+      tags: searchText,
+    })
+      .then((data: any) =>
         this.setState({
-          photos: response.photos.photo,
-          total: response.photos.total,
+          photos: data.photos.photo,
+          total: data.photos.total,
         })
-      })
+      )
+      .catch((error: any) => console.error(error))
   }
 
   public render() {
@@ -54,16 +54,17 @@ class App extends React.Component {
   }
 
   private search = (e: any) => {
-    fetch(
-      `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${API_KEY}&tags=${e.target.value}&format=json&nojsoncallback=?`
-    )
-      .then(res => res.json())
-      .then(response => {
+    FlickrAPIClient.get('/', {
+      method: 'flickr.photos.search',
+      tags: e.target.value,
+    })
+      .then((data: any) =>
         this.setState({
-          photos: response.photos.photo,
-          total: response.photos.total,
+          photos: data.photos.photo,
+          total: data.photos.total,
         })
-      })
+      )
+      .catch((error: any) => console.error(error))
   }
 }
 
