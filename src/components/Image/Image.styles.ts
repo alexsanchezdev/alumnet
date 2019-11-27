@@ -6,24 +6,28 @@ const transitionConfig = css`
   transition-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
 `
 
-const Container = styled.div`
+const Container = styled.div<{ isError?: boolean; isLoading?: boolean }>`
   position: relative;
   width: 100%;
-  height: 0;
   padding-top: 100%;
   overflow: hidden;
-  cursor: pointer;
+
   ${transitionConfig};
 
-  :hover {
-    & > div {
-      background-color: rgba(0, 0, 0, 0.4);
-    }
+  ${p =>
+    !p.isError &&
+    css`
+      cursor: pointer;
+      :hover {
+        & > div {
+          background-color: rgba(0, 0, 0, 0.4);
+        }
 
-    & > img {
-      transform: scale(1.1);
-    }
-  }
+        & > img {
+          transform: scale(1.1);
+        }
+      }
+    `}
 `
 
 const Overlay = styled.div`
@@ -68,4 +72,11 @@ const Title = styled.span`
   ${transitionConfig};
 `
 
-export { Container, Overlay, Image, Title }
+const StateMessage = styled.span`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`
+
+export { Container, Overlay, Image, Title, StateMessage }
