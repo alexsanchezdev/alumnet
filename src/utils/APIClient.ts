@@ -12,7 +12,6 @@ class AxiosAPIClient implements APIClient {
   constructor() {
     this.instance = axios.create({
       baseURL: `https://www.flickr.com/services/rest`,
-      headers: { 'Content-Type': 'application/json' },
       timeout: 3000,
     })
   }

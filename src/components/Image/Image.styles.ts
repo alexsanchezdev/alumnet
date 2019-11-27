@@ -1,16 +1,20 @@
 import styled from '@emotion/styled'
 import css from '@emotion/css'
+import { Link } from 'react-router-dom'
 
 const transitionConfig = css`
   transition-duration: 250ms;
   transition-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
 `
 
-const Container = styled.div<{ isError?: boolean; isLoading?: boolean }>`
+const Container = styled(Link)<{ isError?: boolean }>`
   position: relative;
   width: 100%;
   padding-top: 100%;
   overflow: hidden;
+  outline: none;
+  text-decoration: none;
+  color: black;
 
   ${transitionConfig};
 
@@ -23,9 +27,11 @@ const Container = styled.div<{ isError?: boolean; isLoading?: boolean }>`
         & > div {
           background-color: rgba(0, 0, 0, 0.4);
         }
-
         & > img {
           transform: scale(1.1);
+        }
+        & span {
+          opacity: 1;
         }
       }
     `}
@@ -45,13 +51,6 @@ const Overlay = styled.div`
 
   background-color: rgba(0, 0, 0, 0);
   ${transitionConfig};
-
-  :hover,
-  :focus {
-    & > span {
-      opacity: 1;
-    }
-  }
 `
 
 const Image = styled.img`

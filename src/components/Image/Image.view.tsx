@@ -20,7 +20,7 @@ const ImageComponent: React.FC<Props> = ({ photo }) => {
   }
 
   return (
-    <Container isError={error}>
+    <Container to={`/photo/${photo.id}`} isError={error}>
       {loading && <StateMessage>Loading...</StateMessage>}
       {error && <StateMessage>Failed to load image</StateMessage>}
       {!error && (

@@ -6,6 +6,7 @@ import { FlickrAPIClient } from '../utils/APIClient'
 
 export class Home extends React.Component {
   public state = {
+    favorites: 0,
     photos: [],
     searchText: 'cars',
     total: 0,
@@ -23,6 +24,14 @@ export class Home extends React.Component {
         })
       )
       .catch((error: any) => console.error(error))
+
+    const favorites = localStorage.getItem('favorites')
+    if (favorites) {
+      const favoritesArray = JSON.parse(favorites) as string[]
+      this.setState({ favorites: favoritesArray.length })
+    } else {
+      this.setState({ favorites: 0 })
+    }
   }
 
   public render() {
@@ -36,7 +45,7 @@ export class Home extends React.Component {
               </li>
               <li>Total results: {this.state.total}</li>
               <li>Total images displayed: {this.state.photos.length}</li>
-              <li>Favorites: </li>
+              <li>Favorites: {this.state.favorites}</li>
             </ul>
           </nav>
         </header>
