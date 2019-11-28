@@ -27,7 +27,7 @@ export const Navigation: React.FC = () => {
         {pathname !== '/favorites' && (
           <FavoritesPhotoCountContainer>
             <FavoritesLink to="/favorites">
-              Show favorites ({store.favoritesCount})
+              Favorites ({store.favoritesCount})
             </FavoritesLink>
             {pathname === '/' && (
               <span>
