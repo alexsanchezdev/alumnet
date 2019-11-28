@@ -27,6 +27,7 @@ export const FavoritesLink = styled(Link)`
 
 export const FavoritesPhotoCountContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   flex-basis: 100%;
   padding-right: 24px;

@@ -33,7 +33,7 @@ export const Navigation: React.FC = () => {
               <span>
                 {store.isSearching
                   ? 'Searching...'
-                  : `Showing ${store.photosCount} of ${store.totalPhotosCount} total images`}
+                  : `${store.photosCount} of ${store.totalPhotosCount} images`}
               </span>
             )}
           </FavoritesPhotoCountContainer>
