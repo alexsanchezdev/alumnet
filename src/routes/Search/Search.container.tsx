@@ -14,6 +14,7 @@ export const SearchContainer: React.FC = () => {
 
   React.useEffect(() => {
     if (search) {
+      setCurrentPage(1)
       fetchPhotos(search, 1)
         .then(data => {
           store.setPhotosCount(data.photos.photo.length, data.photos.total)
