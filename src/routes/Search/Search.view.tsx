@@ -30,7 +30,7 @@ export const SearchView: React.FC<Props> = ({ photos, onLoadMore }) => {
           </Message>
         )}
       </List>
-      {store.photosCount < store.totalPhotosCount && (
+      {store.photosCount < store.totalPhotosCount && photos.length > 0 && (
         <LoadMore onLoadMore={onLoadMore} />
       )}
     </Layout>
