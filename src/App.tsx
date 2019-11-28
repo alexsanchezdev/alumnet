@@ -5,7 +5,7 @@ import {
   Switch,
   Redirect,
 } from 'react-router-dom'
-import { Home } from './routes/Home'
+import { Search } from './routes/Search'
 import { NotFound } from './routes/NotFound'
 import { Photo } from './routes/Photo'
 import { Navigation } from './components/Navigation/Navigation'
@@ -18,7 +18,7 @@ const App: React.FC = () => (
       <Navigation />
       <Switch>
         <Route exact={true} path="/">
-          <Home />
+          <Search />
         </Route>
         <Route path="/photo/:id">
           <Photo />

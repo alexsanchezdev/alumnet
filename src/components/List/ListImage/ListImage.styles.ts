@@ -1,11 +1,6 @@
+import { transitionConfig } from '../../../utils/styles.utils'
 import styled from '@emotion/styled'
-import css from '@emotion/css'
 import { Link } from 'react-router-dom'
-
-const transitionConfig = css`
-  transition-duration: 250ms;
-  transition-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
-`
 
 const Container = styled(Link)`
   position: relative;

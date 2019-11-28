@@ -1,12 +1,18 @@
 import * as React from 'react'
-import { Photo } from './Image.model'
-import { Container, Image, Overlay, Title, StateMessage } from './Image.styles'
+import {
+  Container,
+  Image,
+  Overlay,
+  Title,
+  StateMessage,
+} from './ListImage.styles'
+import { PhotoSearchModel } from '../../../routes/Search/Search.model'
 
 interface Props {
-  photo: Photo
+  photo: PhotoSearchModel
 }
 
-const ImageComponent: React.FC<Props> = ({ photo }) => {
+export const ListImage: React.FC<Props> = ({ photo }) => {
   const [loading, setLoading] = React.useState(true)
   const [error, setError] = React.useState(false)
 
@@ -30,7 +36,7 @@ const ImageComponent: React.FC<Props> = ({ photo }) => {
         <>
           <Image
             alt={photo.title}
-            src={`https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg `}
+            src={photo.url}
             onLoad={hideLoading}
             onError={showError}
           />
@@ -42,5 +48,3 @@ const ImageComponent: React.FC<Props> = ({ photo }) => {
     </Container>
   )
 }
-
-export { ImageComponent as Image }

@@ -22,8 +22,8 @@ const useQuery = () => {
 
 export const Search: React.FC = () => {
   const history = useHistory()
-  const searchQuery = useQuery().get('search') as string
-  const [search, setSearch] = React.useState(searchQuery)
+  const searchQuery = useQuery().get('search')
+  const [search, setSearch] = React.useState(searchQuery || '')
 
   const handleChange = (e: any) => {
     setSearch(e.target.value)
