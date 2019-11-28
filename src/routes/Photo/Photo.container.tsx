@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
-import { StoreContext } from '../../components/Store/Store'
+import { StoreContext } from '../../components/Store/Store.context'
 import { useParams } from 'react-router-dom'
 import { FlickrAPIClient } from '../../api/client'
 import { PhotoView } from './Photo.view'

@@ -2,7 +2,7 @@
 import React from 'react'
 import { List, ListImage, ListItem } from '../../components/List'
 import { LoadMore } from '../../components/LoadMore'
-import { StoreContext } from '../../components/Store/Store'
+import { StoreContext } from '../../components/Store'
 import { Layout, Message } from './Search.styles'
 import { PhotoSearchModel } from './Search.model'
 

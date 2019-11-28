@@ -1,9 +1,17 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { render } from './utils/test.utils'
 import App from './App'
+import { createMemoryHistory } from 'history'
 
-it('renders without crashing', () => {
-  const div = document.createElement('div')
-  ReactDOM.render(<App />, div)
-  ReactDOM.unmountComponentAtNode(div)
+it('render default path', () => {
+  const history = createMemoryHistory()
+  const { getByText } = render(<App />, {
+    history,
+    store: { isSearching: false },
+  })
+  const homeMessage = getByText(
+    'Search a tag or multiples tags (separated by comma) to show results.'
+  )
+  expect(history.location.pathname).toBe('/')
+  expect(homeMessage).toBeDefined()
 })

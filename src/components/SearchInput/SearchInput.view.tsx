@@ -21,9 +21,9 @@ export const SearchInput: React.FC = () => {
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} data-testid="form">
       <Input
-        aria-label="Tags"
+        aria-label="tags-input"
         type="text"
         placeholder="Enter tags..."
         value={search}

@@ -9,7 +9,7 @@ import { Search } from './routes/Search'
 import { NotFound } from './routes/NotFound'
 import { Photo } from './routes/Photo'
 import { Navigation } from './components/Navigation'
-import { StoreProvider } from './components/Store/Store'
+import { StoreProvider } from './components/Store'
 import { Favorites } from './routes/Favorites'
 
 const App: React.FC = () => (
@@ -17,7 +17,7 @@ const App: React.FC = () => (
     <Router>
       <Navigation />
       <Switch>
-        <Route exact={true} path="/">
+        <Route path="/" exact={true}>
           <Search />
         </Route>
         <Route path="/photo/:id">

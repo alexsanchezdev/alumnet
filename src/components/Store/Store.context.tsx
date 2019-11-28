@@ -20,7 +20,11 @@ export const StoreContext = React.createContext<ProviderValues>({
   setIsSearching: (value: boolean) => null,
 })
 
-export class StoreProvider extends React.Component {
+interface Props {
+  store?: any
+}
+
+export class StoreProvider extends React.Component<Props> {
   public state = {
     favoritesCount: 0,
     photosCount: 0,
@@ -45,6 +49,7 @@ export class StoreProvider extends React.Component {
           setFavoritesCount: this.setFavoritesCount,
           setPhotosCount: this.setPhotosCount,
           setIsSearching: this.setIsSearching,
+          ...this.props.store,
         }}
       >
         {this.props.children}

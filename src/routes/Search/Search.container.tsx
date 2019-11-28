@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
 import { FlickrAPIClient } from '../../api/client'
-import { StoreContext } from '../../components/Store/Store'
+import { StoreContext } from '../../components/Store'
 import { useQuery } from '../../utils/router.utils'
 import { SearchView } from './Search.view'
 import { photoSearchDTOToPhotoSearchModel } from './Search.mappers'

@@ -2,7 +2,7 @@
 import React from 'react'
 import { SearchInput } from '../SearchInput'
 import { useLocation } from 'react-router-dom'
-import { StoreContext } from '../Store/Store'
+import { StoreContext } from '../Store'
 import {
   Container,
   FavoritesLink,
@@ -26,7 +26,7 @@ export const Navigation: React.FC = () => {
         <SearchInput />
         {pathname !== '/favorites' && (
           <FavoritesPhotoCountContainer>
-            <FavoritesLink to="/favorites">
+            <FavoritesLink to="/favorites" data-testid="favorites-link">
               Favorites ({store.favoritesCount})
             </FavoritesLink>
             {pathname === '/' && (

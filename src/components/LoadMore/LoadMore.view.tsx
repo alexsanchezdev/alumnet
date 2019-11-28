@@ -1,5 +1,5 @@
 import React from 'react'
-import { StoreContext } from '../Store/Store'
+import { StoreContext } from '../Store'
 import { Container, Button } from './LoadMore.styles'
 
 interface Props {
