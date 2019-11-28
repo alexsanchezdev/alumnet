@@ -28,8 +28,15 @@ export const Card = styled.div`
   max-width: 800px;
   padding: 24px;
   margin: 0 auto;
-  background-color: white;
   border-radius: 8px;
+
+  ${tabletQuery`
+    padding: 0;
+  `}
+
+  ${mobileQuery`
+    padding: 0;
+  `}
 `
 
 export const Button = styled.button`
