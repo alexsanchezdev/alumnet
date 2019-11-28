@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { useQuery } from '../../utils/router.utils'
-import { Form, Input } from './SearchInput.styles'
+import { Form, Input, Submit } from './SearchInput.styles'
 
 export const SearchInput: React.FC = () => {
   const history = useHistory()
@@ -23,13 +23,13 @@ export const SearchInput: React.FC = () => {
   return (
     <Form onSubmit={handleSubmit}>
       <Input
-        aria-label="Search"
+        aria-label="Tags"
         type="text"
-        placeholder="Search and press enter"
+        placeholder="Enter tags..."
         value={search}
         onChange={handleChange}
       />
-      <input type="submit" style={{ display: 'none' }} />
+      <Submit type="submit" value="Search" />
     </Form>
   )
 }
