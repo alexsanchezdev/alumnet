@@ -1,13 +1,26 @@
 import styled from '@emotion/styled'
-import { transitionConfig } from '../../utils/styles.utils'
+import {
+  transitionConfig,
+  desktopQuery,
+  tabletQuery,
+  mobileQuery,
+} from '../../utils/styles.utils'
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  margin-top: 156px;
   padding: 24px;
+
+  ${desktopQuery`
+      margin-top: 146px;
+    `};
+  ${tabletQuery`
+      margin-top: 116px;
+    `};
+  ${mobileQuery`
+      margin-top: 110px;
+    `};
 `
 
 export const Card = styled.div`

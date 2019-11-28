@@ -1,5 +1,10 @@
 import styled from '@emotion/styled'
 import { Link } from 'react-router-dom'
+import {
+  desktopQuery,
+  tabletQuery,
+  mobileQuery,
+} from '../../utils/styles.utils'
 
 export const Container = styled.nav`
   position: fixed;
@@ -27,4 +32,17 @@ export const FavoritesPhotoCountContainer = styled.div`
   padding-right: 24px;
   padding-bottom: 24px;
   padding-left: 24px;
+
+  & > span,
+  a {
+    ${desktopQuery`
+      font-size: 16px;
+    `};
+    ${tabletQuery`
+      font-size: 16px;
+    `};
+    ${mobileQuery`
+      font-size: 14px;
+    `};
+  }
 `
