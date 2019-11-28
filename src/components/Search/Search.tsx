@@ -1,5 +1,5 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import styled from '@emotion/styled'
 
 const Input = styled.input`
@@ -16,9 +16,14 @@ const Input = styled.input`
   }
 `
 
+const useQuery = () => {
+  return new URLSearchParams(useLocation().search.slice(1))
+}
+
 export const Search: React.FC = () => {
   const history = useHistory()
-  const [search, setSearch] = React.useState('')
+  const searchQuery = useQuery().get('search') as string
+  const [search, setSearch] = React.useState(searchQuery)
 
   const handleChange = (e: any) => {
     setSearch(e.target.value)
@@ -33,10 +38,10 @@ export const Search: React.FC = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{ flex: 1 }}>
+    <form onSubmit={handleSubmit} style={{ flexBasis: '100%' }}>
       <Input
         type="text"
-        placeholder="Search and press enter..."
+        placeholder="Search and press enter"
         value={search}
         onChange={handleChange}
       />

@@ -7,7 +7,7 @@ const transitionConfig = css`
   transition-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
 `
 
-const Container = styled(Link)<{ isError?: boolean }>`
+const Container = styled(Link)`
   position: relative;
   width: 100%;
   padding-top: 100%;
@@ -18,23 +18,19 @@ const Container = styled(Link)<{ isError?: boolean }>`
 
   ${transitionConfig};
 
-  ${p =>
-    !p.isError &&
-    css`
-      cursor: pointer;
-      :hover,
-      :focus {
-        & > div {
-          background-color: rgba(0, 0, 0, 0.4);
-        }
-        & > img {
-          transform: scale(1.1);
-        }
-        & span {
-          opacity: 1;
-        }
-      }
-    `}
+  cursor: pointer;
+  :hover,
+  :focus {
+    & > div {
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+    & > img {
+      transform: scale(1.1);
+    }
+    & span {
+      opacity: 1;
+    }
+  }
 `
 
 const Overlay = styled.div`

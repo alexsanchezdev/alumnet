@@ -10,6 +10,7 @@ import { NotFound } from './routes/NotFound'
 import { Photo } from './routes/Photo'
 import { Navigation } from './components/Navigation/Navigation'
 import { StoreProvider } from './components/Store/Store'
+import { Favorites } from './routes/Favorites'
 
 const App: React.FC = () => (
   <StoreProvider>
@@ -21,6 +22,9 @@ const App: React.FC = () => (
         </Route>
         <Route path="/photo/:id">
           <Photo />
+        </Route>
+        <Route path="/favorites">
+          <Favorites />
         </Route>
         <Route path="/404">
           <NotFound />

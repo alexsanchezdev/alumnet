@@ -12,35 +12,71 @@ const useQuery = () => {
 }
 
 export const Home: React.FC = () => {
-  const search = useQuery().get('search')
+  const search = useQuery().get('search') as string
   const store = React.useContext(StoreContext)
   const [photos, setPhotos] = React.useState([])
+  const [currentPage, setCurrentPage] = React.useState(1)
 
   React.useEffect(() => {
-    store.setIsSearching(true)
-    FlickrAPIClient.get('/', {
-      method: 'flickr.photos.search',
-      sort: 'relevance',
-      tags: search || 'cars',
-    })
-      .then((data: any) => {
-        store.setPhotosCount(data.photos.photo.length, data.photos.total)
-        setPhotos(data.photos.photo)
-      })
-      .catch((error: any) => console.error(error))
-      .finally(() => store.setIsSearching(false))
+    if (search) {
+      fetchPhotos(search, 1)
+        .then(data => {
+          store.setPhotosCount(data.photos.photo.length, data.photos.total)
+          setPhotos(data.photos.photo)
+        })
+        .catch(error => console.error(error))
+    }
   }, [search])
 
+  const fetchPhotos = (tags: string, page: number) => {
+    store.setIsSearching(true)
+    return FlickrAPIClient.get('/', {
+      method: 'flickr.photos.search',
+      sort: 'relevance',
+      tags,
+      page,
+    }).finally(() => store.setIsSearching(false))
+  }
+
+  const handleLoadMore = () => {
+    const nextPage = currentPage + 1
+    fetchPhotos(search, nextPage).then(data => {
+      const newPhotos = photos.concat(data.photos.photo)
+      store.setPhotosCount(newPhotos.length, data.photos.total)
+      setPhotos(newPhotos)
+      setCurrentPage(nextPage)
+    })
+  }
+
   return (
-    <div style={{ marginTop: 104 }}>
-      {!store.isSearching && (
-        <List>
-          {photos.map((photo: Photo) => (
-            <ListItem key={photo.id}>
+    <div style={{ marginTop: 146 }}>
+      <List>
+        {photos.length > 0 ? (
+          photos.map((photo: Photo, index: number) => (
+            <ListItem key={index}>
               <Image photo={photo} />
             </ListItem>
-          ))}
-        </List>
+          ))
+        ) : (
+          <>
+            <p style={{ padding: 24 }}>
+              {!store.isSearching
+                ? 'Search a tag or multiples tags (separated by comma) to show results.'
+                : 'Loading...'}
+            </p>
+          </>
+        )}
+      </List>
+      {store.photosCount < store.totalPhotosCount && (
+        <>
+          {store.isSearching ? (
+            <p>Loading... </p>
+          ) : (
+            <button style={{ margin: '24px auto' }} onClick={handleLoadMore}>
+              Load more
+            </button>
+          )}
+        </>
       )}
     </div>
   )
