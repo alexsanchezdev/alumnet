@@ -5,6 +5,7 @@ import { List } from '../components/List'
 import { ListItem } from '../components/ListItem'
 import { FlickrAPIClient } from '../utils/APIClient'
 import { useLocation } from 'react-router-dom'
+import { StoreContext } from '../components/Store/Store'
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search.slice(1))
@@ -12,33 +13,27 @@ const useQuery = () => {
 
 export const Home: React.FC = () => {
   const search = useQuery().get('search')
-  const [loading, setLoading] = React.useState(false)
+  const store = React.useContext(StoreContext)
   const [photos, setPhotos] = React.useState([])
-  const [totalPhotos, setTotalPhotos] = React.useState(0)
 
   React.useEffect(() => {
-    setLoading(true)
+    store.setIsSearching(true)
     FlickrAPIClient.get('/', {
       method: 'flickr.photos.search',
       sort: 'relevance',
       tags: search || 'cars',
     })
       .then((data: any) => {
+        store.setPhotosCount(data.photos.photo.length, data.photos.total)
         setPhotos(data.photos.photo)
-        setTotalPhotos(data.photos.total)
       })
       .catch((error: any) => console.error(error))
-      .finally(() => setLoading(false))
+      .finally(() => store.setIsSearching(false))
   }, [search])
 
   return (
-    <div>
-      <p style={{ paddingLeft: 24, paddingRight: 24 }}>
-        {loading
-          ? 'Searching...'
-          : `Showing ${photos.length} of ${totalPhotos} total images`}
-      </p>
-      {!loading && (
+    <div style={{ marginTop: 104 }}>
+      {!store.isSearching && (
         <List>
           {photos.map((photo: Photo) => (
             <ListItem key={photo.id}>

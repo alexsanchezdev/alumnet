@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { FlickrAPIClient } from '../utils/APIClient'
 import styled from '@emotion/styled'
 import css from '@emotion/css'
+import { StoreContext } from '../components/Store/Store'
 
 const transitionConfig = css`
   transition-duration: 250ms;
@@ -46,8 +48,9 @@ const Button = styled.button`
 
 export const Photo: React.FC = () => {
   const { id } = useParams()
+  const store = React.useContext(StoreContext)
   const [photoInfo, setPhotoInfo] = React.useState()
-  const [favorite, setFavorite] = React.useState()
+  const [isFavorite, setIsFavorite] = React.useState()
 
   React.useEffect(() => {
     FlickrAPIClient.get('/', {
@@ -61,12 +64,12 @@ export const Photo: React.FC = () => {
     if (favorites && id) {
       const favoritesParsed = JSON.parse(favorites)
       if (favoritesParsed[id]) {
-        setFavorite(true)
+        setIsFavorite(true)
         return
       }
     }
-    setFavorite(false)
-  }, [id])
+    setIsFavorite(false)
+  }, [])
 
   const addToFavorites = () => {
     const favorites = localStorage.getItem('favorites')
@@ -90,6 +93,8 @@ export const Photo: React.FC = () => {
       } else if (!favorites) {
         localStorage.setItem('favorites', JSON.stringify(favoriteData))
       }
+      store.setFavoritesCount(store.favoritesCount + 1)
+      setIsFavorite(true)
     }
   }
 
@@ -101,10 +106,11 @@ export const Photo: React.FC = () => {
         if (favoritesParsed[id]) {
           delete favoritesParsed[id]
           localStorage.setItem('favorites', JSON.stringify(favoritesParsed))
+          store.setFavoritesCount(store.favoritesCount - 1)
+          setIsFavorite(false)
         }
       }
     }
-    setFavorite(false)
   }
 
   return (
@@ -122,7 +128,7 @@ export const Photo: React.FC = () => {
               Uploaded by {photoInfo.owner.username} on{' '}
               {new Date(photoInfo.dateuploaded * 1000).toLocaleString()}
             </p>
-            {favorite ? (
+            {isFavorite ? (
               <Button onClick={removeFromFavorites}>
                 Delete from favorites
               </Button>

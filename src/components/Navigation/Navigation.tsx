@@ -1,11 +1,27 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
 import { Search } from '../Search/Search'
 import styled from '@emotion/styled'
-import { Link } from 'react-router-dom'
+import css from '@emotion/css'
+import { Link, useLocation } from 'react-router-dom'
+import { StoreContext } from '../Store/Store'
+
+const transitionConfig = css`
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+`
 
 const Container = styled.nav`
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 104px;
+
   display: flex;
   align-items: center;
+  background-color: #eceff1;
+  z-index: 100;
 `
 
 const FavoritesLink = styled(Link)`
@@ -19,24 +35,40 @@ const FavoritesLink = styled(Link)`
   outline: none;
   text-decoration: none;
   color: #2c2c2c;
+
+  ${transitionConfig};
+
+  :hover,
+  :focus {
+    background-color: #2b2b2b;
+    color: white;
+  }
 `
 
 export const Navigation: React.FC = () => {
-  const [favoritesCount, setFavoritesCount] = React.useState(0)
-
+  const store = React.useContext(StoreContext)
+  const { pathname } = useLocation()
   React.useEffect(() => {
     const favorites = localStorage.getItem('favorites')
     if (favorites) {
       const favoritesParsed = JSON.parse(favorites)
-      setFavoritesCount(Object.keys(favoritesParsed).length)
+      store.setFavoritesCount(Object.keys(favoritesParsed).length)
     }
   }, [])
+
   return (
     <Container>
       <Search />
       <FavoritesLink to="/favorites">
-        My favorites ({favoritesCount})
+        Favorites ({store.favoritesCount})
       </FavoritesLink>
+      {pathname === '/' && (
+        <p style={{ paddingLeft: 24, paddingRight: 24 }}>
+          {store.isSearching
+            ? 'Searching...'
+            : `Showing ${store.photosCount} of ${store.totalPhotosCount} total images`}
+        </p>
+      )}
     </Container>
   )
 }
