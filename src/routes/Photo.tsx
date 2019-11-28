@@ -58,45 +58,49 @@ export const Photo: React.FC = () => {
 
   React.useEffect(() => {
     const favorites = localStorage.getItem('favorites')
-    if (id) {
-      if (favorites) {
-        const favoritesArray = JSON.parse(favorites) as string[]
-        if (favoritesArray.includes(id)) {
-          setFavorite(true)
-          return
-        }
+    if (favorites && id) {
+      const favoritesParsed = JSON.parse(favorites)
+      if (favoritesParsed[id]) {
+        setFavorite(true)
+        return
       }
-      setFavorite(false)
     }
+    setFavorite(false)
   }, [id])
 
   const addToFavorites = () => {
     const favorites = localStorage.getItem('favorites')
     if (id) {
+      const favoriteData = {
+        [id]: {
+          id,
+          farm: photoInfo.farm,
+          title: photoInfo.title._content,
+          server: photoInfo.server,
+          secret: photoInfo.secret,
+        },
+      }
       if (favorites) {
-        const favoritesArray = JSON.parse(favorites) as string[]
-        if (favoritesArray.includes(id)) {
-          return
+        const favoritesObj = JSON.parse(favorites)
+        const newFavorites = {
+          ...favoritesObj,
+          ...favoriteData,
         }
-        localStorage.setItem(
-          'favorites',
-          JSON.stringify([...favoritesArray, id])
-        )
-      } else {
-        localStorage.setItem('favorites', JSON.stringify([id]))
+        localStorage.setItem('favorites', JSON.stringify(newFavorites))
+      } else if (!favorites) {
+        localStorage.setItem('favorites', JSON.stringify(favoriteData))
       }
     }
-    setFavorite(true)
   }
 
   const removeFromFavorites = () => {
     const favorites = localStorage.getItem('favorites')
     if (id) {
       if (favorites) {
-        const favoritesArray = JSON.parse(favorites) as string[]
-        if (favoritesArray.includes(id)) {
-          const filteredFavorites = favoritesArray.filter(value => value !== id)
-          localStorage.setItem('favorites', JSON.stringify(filteredFavorites))
+        const favoritesParsed = JSON.parse(favorites)
+        if (favoritesParsed[id]) {
+          delete favoritesParsed[id]
+          localStorage.setItem('favorites', JSON.stringify(favoritesParsed))
         }
       }
     }

@@ -8,11 +8,11 @@ import {
 import { Home } from './routes/Home'
 import { NotFound } from './routes/NotFound'
 import { Photo } from './routes/Photo'
-import { Search } from './components/Search/Search'
+import { Navigation } from './components/Navigation/Navigation'
 
 const App: React.FC = () => (
   <Router>
-    <Search />
+    <Navigation />
     <Switch>
       <Route exact={true} path="/">
         <Home />

@@ -33,7 +33,7 @@ export const Search: React.FC = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} style={{ flex: 1 }}>
       <Input
         type="text"
         placeholder="Write a tag and press enter..."

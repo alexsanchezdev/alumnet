@@ -13,17 +13,8 @@ const useQuery = () => {
 export const Home: React.FC = () => {
   const search = useQuery().get('search')
   const [loading, setLoading] = React.useState(false)
-  const [favorites, setFavorites] = React.useState(0)
   const [photos, setPhotos] = React.useState([])
   const [totalPhotos, setTotalPhotos] = React.useState(0)
-
-  React.useEffect(() => {
-    const savedFavorites = localStorage.getItem('favorites')
-    if (savedFavorites) {
-      const savedFavoritesArray = JSON.parse(savedFavorites) as string[]
-      setFavorites(savedFavoritesArray.length)
-    }
-  }, [])
 
   React.useEffect(() => {
     setLoading(true)
