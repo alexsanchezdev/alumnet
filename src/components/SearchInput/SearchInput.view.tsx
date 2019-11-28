@@ -1,26 +1,9 @@
 import React from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
-import styled from '@emotion/styled'
+import { useHistory } from 'react-router-dom'
+import { useQuery } from '../../utils/router.utils'
+import { Form, Input } from './SearchInput.styles'
 
-const Input = styled.input`
-  width: 100%;
-  font-size: 48px;
-  box-sizing: border-box;
-  border: none;
-  background: transparent;
-  outline: none;
-  padding: 24px;
-
-  &::placeholder {
-    font-size: 48px;
-  }
-`
-
-const useQuery = () => {
-  return new URLSearchParams(useLocation().search.slice(1))
-}
-
-export const Search: React.FC = () => {
+export const SearchInput: React.FC = () => {
   const history = useHistory()
   const searchQuery = useQuery().get('search')
   const [search, setSearch] = React.useState(searchQuery || '')
@@ -38,14 +21,15 @@ export const Search: React.FC = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{ flexBasis: '100%' }}>
+    <Form onSubmit={handleSubmit}>
       <Input
+        aria-label="Search"
         type="text"
         placeholder="Search and press enter"
         value={search}
         onChange={handleChange}
       />
       <input type="submit" style={{ display: 'none' }} />
-    </form>
+    </Form>
   )
 }

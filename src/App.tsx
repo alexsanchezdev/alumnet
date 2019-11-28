@@ -8,7 +8,7 @@ import {
 import { Search } from './routes/Search'
 import { NotFound } from './routes/NotFound'
 import { Photo } from './routes/Photo'
-import { Navigation } from './components/Navigation/Navigation'
+import { Navigation } from './components/Navigation'
 import { StoreProvider } from './components/Store/Store'
 import { Favorites } from './routes/Favorites'
 
