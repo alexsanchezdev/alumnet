@@ -35,6 +35,7 @@ export const ListImage: React.FC<Props> = ({ photo }) => {
       {!error && (
         <>
           <Image
+            data-testid="list-image"
             alt={photo.title}
             src={photo.url}
             onLoad={hideLoading}
